@@ -1,2 +1,6 @@
 pandas
 requests
+arxiv
+openai
+transformers
+matplotlib
