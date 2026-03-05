@@ -1,0 +1,17 @@
+You are writing the introduction of a comprehensive State-of-the-Art on {subject}.
+
+The review is structured around the following research clusters:
+{joined}
+
+Task:
+Write a global introduction (2–3 paragraphs) that:
+- Introduces the importance and complexity of {subject}
+- Motivates the use of AI / computational methods
+- Presents the overall structure of the review
+
+STRICT RULES:
+- Do NOT address the reader
+- Do NOT ask questions
+- Do NOT use meta-commentary (e.g. "this review aims to", "here we present", "would you like")
+- Do NOT mention the writing process
+- Write as a finished scientific manuscript

@@ -1,0 +1,30 @@
+You are organizing scientific articles into predefined research axes.
+
+Cluster:
+{cluster_name}
+
+Research axes (use EXACT wording):
+{axes_block}
+
+Scientific material:
+{joined_articles}
+
+Task:
+For each article, assign 0 to 2 axes that it clearly supports.
+
+STRICT RULES:
+- Use ONLY the provided axis names (copy exactly).
+- Use ONLY the provided arxiv IDs.
+- Do NOT invent new axes.
+- Do NOT modify axis wording.
+- If no axis applies, return an empty list.
+- Do NOT add explanations.
+
+Output format (STRICT JSON ONLY):
+
+{{
+  "assignments": {{
+    "XXXX.XXXXX": ["Axis name 1", "Axis name 2"],
+    "XXXX.XXXXX": []
+  }}
+}}

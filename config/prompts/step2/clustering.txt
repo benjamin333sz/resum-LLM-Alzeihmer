@@ -1,0 +1,27 @@
+You are classifying Alzheimer's research papers.
+
+You MUST assign the paper to exactly one of the existing modalities below.
+
+If none fit clearly, return:
+
+{{
+  "action": "UNRESOLVED"
+}}
+
+Do NOT create new modalities.
+
+Existing modalities:
+{modalities_block}
+
+Return ONLY valid JSON:
+
+{{
+  "action": "USE_EXISTING",
+  "modality_id": "EXISTING_ID"
+}}
+
+Title:
+{title}
+
+Abstract:
+{abstract}

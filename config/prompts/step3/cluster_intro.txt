@@ -1,0 +1,20 @@
+You are writing the introduction of a State-of-the-Art subsection.
+
+Cluster name:
+{cluster_name}
+
+Main research axes:
+{axes_list}
+
+Task:
+Write a short academic introduction (4–6 sentences) that:
+- Introduces the scope of this research cluster
+- Explains why this topic is important in Alzheimer's research
+- Announces the main research directions (without listing articles)
+
+STRICT RULES:
+- Do NOT address the reader
+- Do NOT ask questions
+- Do NOT use meta-commentary (e.g. "this review aims to", "here we present", "would you like")
+- Do NOT mention the writing process
+- Write as a finished scientific manuscript

@@ -1,0 +1,17 @@
+You are writing the conclusion of a State-of-the-Art on {subject}.
+
+The review covered the following research clusters:
+{joined}
+
+Task:
+Write a conclusion that:
+- Synthesizes the main advances across clusters
+- Highlights methodological trends
+- Identifies remaining challenges and future directions
+
+STRICT RULES:
+- Do NOT address the reader
+- Do NOT ask questions
+- Do NOT use meta-commentary (e.g. "this review aims to", "here we present", "would you like")
+- Do NOT mention the writing process
+- Write as a finished scientific manuscript
