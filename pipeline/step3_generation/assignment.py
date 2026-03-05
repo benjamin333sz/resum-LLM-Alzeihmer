@@ -2,6 +2,7 @@ from langfuse import observe
 from utils.utils import safe_format, safe_json_load
 from llm.base import LLMClient
 
+
 def validate_and_fix_assignments(assignments, arxiv_ids, axes):
     """
     Ensures:
@@ -22,6 +23,7 @@ def validate_and_fix_assignments(assignments, arxiv_ids, axes):
         fixed[arxiv_id] = valid_axes[:2]
 
     return fixed
+
 
 @observe(name="assign_articles_to_axes", as_type="generation")
 def assign_articles_to_axes(

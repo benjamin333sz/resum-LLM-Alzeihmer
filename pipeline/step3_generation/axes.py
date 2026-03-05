@@ -24,6 +24,13 @@ def extract_axes(
     axes = data.get("axes")
 
     if not isinstance(axes, list):
-        raise ValueError(f"Invalid axes format: {data}")
+        raise ValueError(
+            f"Invalid axes format: {data}. Format output is maybe not a json"
+        )
 
     return axes
+
+
+def chunk_list(lst, size):
+    for i in range(0, len(lst), size):
+        yield lst[i : i + size]

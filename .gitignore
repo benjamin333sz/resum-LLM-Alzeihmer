@@ -8,6 +8,5 @@ __pycache__/
 *.pyd
 *.json
 *.bib
-.env
 *.tex
 .env

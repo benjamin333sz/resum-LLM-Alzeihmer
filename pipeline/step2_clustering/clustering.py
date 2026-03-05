@@ -20,7 +20,9 @@ def clustering(
 
     prompt_template = prompts["clustering"]
 
-    for paper in tqdm(papers, desc="[Step_2] Attribution clusters following modalities"):
+    for paper in tqdm(
+        papers, desc="[Step_2] Attribution clusters following modalities"
+    ):
 
         modalities_block = "\n".join(f"{k}: {v}" for k, v in user_modalities.items())
 

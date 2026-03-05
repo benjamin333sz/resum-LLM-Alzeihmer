@@ -18,11 +18,12 @@ class GroqClient(LLMClient):
         self.temperature = temperature
 
     @observe(name="groq_completion", as_type="generation")
-    def complete(self,
+    def complete(
+        self,
         prompt: str,
         temperature: float | None = None,
     ) -> str:
-        
+
         temp = temperature if temperature is not None else self.temperature
         try:
             response = self.client.chat.completions.create(

@@ -8,7 +8,7 @@ from langfuse import observe
 from llm.base import LLMClient
 
 
-@observe(name="step2_clustering_pipeline", as_type="chain")
+@observe(name="step2_clustering", as_type="chain")
 def run_step2(
     papers: list[Paper],
     llm: LLMClient,

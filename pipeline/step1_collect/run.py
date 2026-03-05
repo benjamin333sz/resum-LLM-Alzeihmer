@@ -10,12 +10,14 @@ from pipeline.step1_collect.bibtex import generate_bib_file
 from llm.base import LLMClient
 from datetime import datetime
 
-@observe(name="step1_collect_pipeline", as_type="chain")
+
+@observe(name="step1_collect", as_type="chain")
 def run_step1(
     prompts: dict[str, str],
     llm: LLMClient,
     nb_paper: int = 50,
     subject: str = "alzheimer",
+    scholar_citation: bool = False,
 ) -> list[Paper]:
     """
     Run the full Step 1 pipeline:
@@ -34,11 +36,12 @@ def run_step1(
             f"No papers found on arXiv for subject '{subject}'. "
             "Please try a broader or different query."
         )
-    
+
     save_json(papers, "data/raw/papers.json")
 
     # data enrichment
-    papers = enrich_with_semantic_scholar(papers)
+    if scholar_citation:
+        papers = enrich_with_semantic_scholar(papers)
 
     # LLM filter
     papers = filter_subject(

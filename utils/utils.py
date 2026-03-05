@@ -11,9 +11,18 @@ def clean_token(text: str) -> str:
 
 @observe(name="safe_json_load", as_type="tool")
 def safe_json_load(output: str):
+    if not output:
+        return {}
     start = output.find("{")
-    end = output.rfind("}") + 1
-    return json.loads(output[start:end])
+    end = output.rfind("}")
+
+    if start == -1 or end == -1 or end <= start:
+        return {}
+
+    try:
+        return json.loads(output[start : end + 1])
+    except json.JSONDecodeError:
+        return {}
 
 
 @observe(name="safe_format", as_type="tool")
