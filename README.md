@@ -34,6 +34,8 @@ The pipeline runs in **three main steps**:
 - A clean `.bib` file
 - Metadata-ready dataset
 
+![Description](picture/Step1_diagramme.png)
+
 ---
 
 ## Step 2 — Clustering & Modalities Construction
@@ -68,6 +70,8 @@ This ensures:
   ]
 }
 ```
+
+![Description](picture/Step2_diagramme.png)
 
 ## Step 3 — State-of-the-Art Generation
 
@@ -156,6 +160,11 @@ Key features:
 - Citation protection during generation
 - Clean formatting
 - Automatic bibliography integration:
+
+![Description](picture/Step3_diagramme.png)
+
+## Full Pipeline 
+![Description](picture/Pipeline.png)
 
 # Environment Setup
 
