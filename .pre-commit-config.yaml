@@ -1,0 +1,16 @@
+repos:
+- repo: local
+  hooks:
+    - id: black-file
+      name: Black file
+      language: system
+      pass_filenames: true
+      types: [python]
+      entry: black 
+      
+    - id: nbqa-black
+      name: Black notebook
+      language: system
+      pass_filenames: true
+      types: [jupyter]
+      entry: nbqa black

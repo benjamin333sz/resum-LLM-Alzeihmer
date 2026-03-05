@@ -1,0 +1,14 @@
+# Environnement virtuel
+.venv/
+
+# Fichiers de logs
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.json
+*.bib
+.env
+*.tex
+*.txt
+pdfs/
