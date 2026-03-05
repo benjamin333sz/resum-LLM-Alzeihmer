@@ -1,0 +1,25 @@
+You are designing a high-level methodological taxonomy for research in the following subject:
+
+{subject}
+
+Task:
+Define 5 to 10 distinct methodological modalities commonly used in this field.
+
+Rules:
+- Focus strictly on methodology (not application domain).
+- Modalities must be broad but scientifically meaningful.
+- Avoid overlapping modalities.
+- Avoid disease-specific phrasing.
+- Names must be uppercase with underscores.
+- Descriptions must be concise (1 sentence).
+
+Return STRICT JSON in this format:
+
+{{
+  "modalities": [
+    {{
+      "modality_id": "MODALITY_NAME",
+      "description": ("Short methodological description")
+    }}
+  ]
+}}

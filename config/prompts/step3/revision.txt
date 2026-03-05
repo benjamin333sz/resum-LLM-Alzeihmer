@@ -1,0 +1,48 @@
+You are acting as a senior reviewer for a high-impact neuroscience journal.
+
+Context:
+The text below is a draft State-of-the-Art section on Alzheimer's disease.
+
+Identified research axes:
+{review_text}
+
+Task:
+Evaluate the quality of this State-of-the-Art section.
+
+You MUST output ONLY valid JSON.
+The JSON MUST start with '{{' and end with '}}'.
+No explanations, no markdown, no extra text.
+
+Evaluation criteria (each scored from 1 to 5):
+- Clarity and readability
+- Structural organization
+- Coverage of the research field
+- Redundancy control (5 = no redundancy)
+- Respect of cited sources
+- Methodological coherence
+- Analytical depth
+- State-of-the-art adequacy
+
+Additionally:
+- Provide a short justification (1–2 sentences) for each score.
+- Compute an overall score (average, rounded to one decimal).
+- Provide a final recommendation among: ["accept", "minor_revision", "major_revision", "reject"].
+
+Output JSON format (STRICT):
+{{
+  "scores": {{
+    "clarity_readability": {{ "score": X, "comment": "..." }},
+    "structure": {{ "score": X, "comment": "..." }},
+    "coverage": {{ "score": X, "comment": "..." }},
+    "redundancy_control": {{ "score": X, "comment": "..." }},
+    "source_respect": {{ "score": X, "comment": "..." }},
+    "methodological_coherence": {{ "score": X, "comment": "..." }},
+    "analytical_depth": {{ "score": X, "comment": "..." }},
+    "state_of_the_art_adequacy": {{ "score": X, "comment": "..." }}
+  }},
+  "overall_score": X.X,
+  "recommendation": "accept | minor_revision | major_revision | reject"
+}}
+
+State-of-the-Art text:
+{sot_text}

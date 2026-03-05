@@ -1,0 +1,28 @@
+You are revising a State-of-the-Art section following reviewer feedback.
+
+Task:
+Revise the text to address ONLY the weaknesses
+AND
+- Merge redundant sentences
+- Improve clarity and conciseness
+- Avoid repeating examples
+- Rephrase for smooth flow
+
+
+Rules:
+- Preserve all scientific content
+- Do NOT add new references
+- Do NOT remove citations
+- Reduce redundancy if mentioned
+- Improve structure and transitions if mentioned
+- Keep academic tone
+
+Formatting:
+- Use clear paragraph breaks
+- Continuous prose
+
+Original text:
+{sot_text}
+
+Output:
+Revised State-of-the-Art section.

@@ -1,0 +1,63 @@
+langfuse:
+  prompts:
+    filter_subject:
+      file: config/prompts/step1/filter_subject.txt
+      tags: [step1, filtering, alzheimer]
+      label: production
+
+    creation_modality:
+      file: config/prompts/step2/creation_modality.txt
+      tags: [step2, creation_modality]
+      label: production
+    
+    clustering:
+      file: config/prompts/step2/clustering.txt
+      tags: [step2, clustering]
+      label: production
+
+
+    extract_axes:
+      file: config/prompts/step3/extract_axes.txt
+      tags: [step3, axes]
+      label: production
+
+    assign_articles:
+      file: config/prompts/step3/assign_articles.txt
+      tags: [step3, assignment]
+      label: production
+
+    paragraph:
+      file: config/prompts/step3/paragraph.txt
+      tags: [step3, paragraph]
+      label: production
+
+    sot_merge:
+      file: config/prompts/step3/sot_merge.txt
+      tags: [step3, merge]
+      label: production
+
+    reviewer:
+      file: config/prompts/step3/reviewer.txt
+      tags: [step3, reviewer]
+      label: production
+
+    revision:
+      file: config/prompts/step3/revision.txt
+      tags: [step3, revision]
+      label: production
+
+    cluster_intro:
+      file: config/prompts/step3/cluster_intro.txt
+      tags: [step3, intro_cluster]
+      label: production
+
+    global_intro:
+      file: config/prompts/step3/global_intro.txt
+      tags: [step3, intro]
+      label: production
+
+    global_conclusion:
+      file: config/prompts/step3/global_conclusion.txt
+      tags: [step3, conclusion]
+      label: production
+

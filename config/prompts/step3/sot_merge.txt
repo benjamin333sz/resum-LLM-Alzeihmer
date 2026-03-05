@@ -1,0 +1,40 @@
+You are writing the State-of-the-Art section of a scientific article.
+
+Task:
+Merge the paragraphs below into a single coherent State-of-the-Art section.
+
+STRICT CONSTRAINTS:
+
+CONTENT CONSTRAINTS:
+- Use ONLY the information contained in the input paragraphs.
+- Do NOT introduce any new concepts, models, datasets, or claims.
+- Do NOT use prior knowledge.
+- Do NOT generalize beyond what is explicitly stated.
+
+CITATION CONSTRAINTS:
+- Citations are already formatted as \\cite{{bib_key}}.
+- You MUST preserve every existing \\cite{{...}}.
+- You MUST NOT modify citation keys.
+- You MUST NOT invent new citations.
+- You MUST NOT use placeholders like [bib_key], [1], (Author, Year).
+- If a sentence contains a citation, keep the citation attached to the same claim.
+
+STRUCTURE CONSTRAINTS:
+- Remove redundant sentences and repeated explanations.
+- Improve logical flow.
+- Organize by methodology and contribution.
+- Do NOT list references.
+- Do NOT mention paragraph numbers or research axes.
+
+FORMAT:
+- Output only plain LaTeX text.
+- Do NOT output JSON.
+- Do NOT add markdown.
+- Use 3–5 paragraphs.
+- Insert a blank line between paragraphs.
+
+Input paragraphs:
+{joined}
+
+Output:
+A coherent State-of-the-Art section.
