@@ -4,6 +4,7 @@ from utils.io import save_raw_json
 from config.modalities.alzheimer_modalities import MODALITIES
 from pipeline.step2_clustering.creation_modality import creation_modality
 from .clustering import clustering
+from .clustering_batch import clustering_batch
 from langfuse import observe
 from llm.base import LLMClient
 
@@ -15,13 +16,20 @@ def run_step2(
     prompts: dict[str, str],
     subject: str,
     user_modalities: dict[str, str] | None = None,
+    batch_size: int = 5,
 ) -> dict[str, object]:
 
     if user_modalities:
-        clusters = clustering(papers, llm, prompts, user_modalities)
+        if batch_size:
+            clusters=clustering_batch(papers, llm, prompts["clustering_batch"], user_modalities,batch_size_start=batch_size)
+        else:
+            clusters = clustering(papers, llm, prompts["clustering"], user_modalities)
     else:
-        user_modalities = creation_modality(subject, llm, prompts)
-        clusters = clustering(papers, llm, prompts, user_modalities)
+        user_modalities = creation_modality(subject, llm, prompts["creation_modality"])
+        if batch_size:
+            clusters=clustering_batch(papers, llm, prompts["clustering_batch"], user_modalities,batch_size_start=batch_size)
+        else:
+            clusters = clustering(papers, llm, prompts["clustering"], user_modalities)
 
     if not clusters:
         raise ValueError("Clustering failed: no clusters created.")

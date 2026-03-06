@@ -22,7 +22,7 @@ def run_step3(
     model: str,
     reviewer_iterations: int = 1,
     subject: str = "alzheimer",
-    CHUNK_SIZE: int = 10,
+    max_articles_per_generation: int | None = None,
 ) -> str:
 
     papers_by_id = {p.arxiv_id: p for p in papers}
@@ -39,7 +39,7 @@ def run_step3(
         names_clusters.append(cluster_name)
         paper_ids = modality["article_ids"]
 
-        chunks = split_chunks(paper_ids, CHUNK_SIZE)
+        chunks = split_chunks(paper_ids, max_articles_per_generation=max_articles_per_generation)
         chunk_sots = []
 
         for i, chunk_ids in enumerate(tqdm(chunks, desc="split chunk", leave=False)):
@@ -98,7 +98,10 @@ def run_step3(
 
             sot = generate_sot(cluster_name, paragraphs, llm, prompts["sot_merge"])
 
-            chunk_sots.append(f"---\nChunk {i+1}\n---\n{sot}")
+            if max_articles_per_generation is None:
+                chunk_sots.append(sot)
+            else:
+                chunk_sots.append(f"---\nChunk {i+1}\n---\n{sot}")
 
         # concaténer tous les chunks pour la modalité
         clusters_content[cluster_name] = "\n\n".join(chunk_sots)

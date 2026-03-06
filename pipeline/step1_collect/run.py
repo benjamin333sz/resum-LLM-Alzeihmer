@@ -1,6 +1,7 @@
 from pipeline.step1_collect.arxiv import fetch_arxiv_papers
 from pipeline.step1_collect.semantic_scholar import enrich_with_semantic_scholar
 from pipeline.step1_collect.llm_filter import filter_subject
+from pipeline.step1_collect.llm_batch import filter_batch
 from llm.ollama import OllamaClient
 from pipeline.step1_collect.arxiv_search import build_arxiv_search
 from utils.io import save_json
@@ -18,6 +19,7 @@ def run_step1(
     nb_paper: int = 50,
     subject: str = "alzheimer",
     scholar_citation: bool = False,
+    batch_size: int = 5,
 ) -> list[Paper]:
     """
     Run the full Step 1 pipeline:
@@ -44,12 +46,22 @@ def run_step1(
         papers = enrich_with_semantic_scholar(papers)
 
     # LLM filter
-    papers = filter_subject(
-        papers,
-        llm,
-        prompts["filter_subject"],
-        subject=subject,
-    )
+    if batch_size or batch_size == 1:
+        papers = filter_batch(
+            papers,
+            llm,
+            prompts["filter_batch"],
+            subject=subject,
+            batch_size=batch_size,
+        )
+    else:
+        papers = filter_subject(
+            papers,
+            llm,
+            prompts["filter_subject"],
+            subject=subject,
+        )
+
     filtered = [p for p in papers if p.is_about_subject]
     print(f"[Step_1] {len(filtered)} articles are about Alzheimer.")
 

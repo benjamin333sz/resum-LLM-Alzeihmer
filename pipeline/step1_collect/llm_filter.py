@@ -27,7 +27,7 @@ def filter_subject(
 
     langfuse = get_langfuse()
 
-    for paper in tqdm(papers, desc=f"[Step_1] Filter Article truly about {subject}"):
+    for paper in tqdm(papers, desc=f"[Step_1] Filtering papers iteration about {subject}"):
         prompt = safe_format(
             prompt_template,
             title=paper.title,

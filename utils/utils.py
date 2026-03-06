@@ -9,6 +9,15 @@ def clean_token(text: str) -> str:
     return re.sub(r"[^a-z0-9]", "", text.lower())
 
 
+def first_n_sentences(text: str, n: int = 5) -> str:
+    sentences = re.split(r"(?<=[.!?])\s+", text.strip())
+    return " ".join(sentences[:n])
+
+
+def count_tokens(text: str) -> int:
+    return max(1, len(text) // 4)
+
+
 @observe(name="safe_json_load", as_type="tool")
 def safe_json_load(output: str):
     if not output:
