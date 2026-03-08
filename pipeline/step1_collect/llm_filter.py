@@ -5,6 +5,7 @@ from tracking.client import get_langfuse
 from langfuse import observe
 from utils.utils import safe_format
 
+
 @observe(name="filter_subject", as_type="evaluator")
 def filter_subject(
     papers: list[Paper],
@@ -26,7 +27,7 @@ def filter_subject(
 
     langfuse = get_langfuse()
 
-    for paper in tqdm(papers,desc=f"[Step_1] Filter Article truly about {subject}"):
+    for paper in tqdm(papers, desc=f"[Step_1] Filtering papers iteration about {subject}"):
         prompt = safe_format(
             prompt_template,
             title=paper.title,
@@ -45,7 +46,7 @@ def filter_subject(
             },
         ) as generation:
 
-            response = llm.complete(prompt,temperature=0.1)
+            response = llm.complete(prompt, temperature=0.1)
             generation.update(output=response)
 
         response_lower = response.lower()

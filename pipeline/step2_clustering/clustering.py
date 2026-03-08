@@ -12,15 +12,14 @@ from collections import defaultdict
 def clustering(
     papers: list[Paper],
     llm: LLMClient,
-    prompts: dict[str, str],
+    prompt_template:str,
     user_modalities: dict[str, str],
 ):
-
     clusters = defaultdict(list)
 
-    prompt_template = prompts["clustering"]
-
-    for paper in tqdm(papers, desc="[Step_2] Attribution clusters following modalities"):
+    for paper in tqdm(
+        papers, desc="[Step_2] Clustering iterations"
+    ):
 
         modalities_block = "\n".join(f"{k}: {v}" for k, v in user_modalities.items())
 

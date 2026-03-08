@@ -11,12 +11,9 @@ from utils.utils import format_user_modalities
 def creation_modality(
     subject: str,
     llm: LLMClient,
-    prompts: dict[str, str],
+    prompt_template: str,
 ):
-
-    creation_prompt = prompts["creation_modality"]
-
-    prompt = safe_format(creation_prompt, subject=subject)
+    prompt = safe_format(prompt_template, subject=subject)
 
     response = llm.complete(prompt, temperature=0.1)
     cleaned = re.sub(r"```json|```", "", response).strip()

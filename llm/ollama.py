@@ -4,6 +4,8 @@ import ollama
 
 
 class OllamaClient(LLMClient):
+    supports_parallelism = False
+
     def __init__(self, model: str = "gemma3:4b", temperature: float = 0.3):
         self.model = model
         self.default_temperature = temperature
@@ -24,7 +26,11 @@ class OllamaClient(LLMClient):
                 options={"temperature": temp},
             )
 
-            return response["message"]["content"].strip()
+            content = response["message"]["content"]
+            if not content:
+                raise RuntimeError("Ollama returned empty response")
+
+            return content.strip()
 
         except Exception as e:
             raise RuntimeError(f"Ollama failed: {str(e)}")

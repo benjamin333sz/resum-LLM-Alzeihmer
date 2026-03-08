@@ -168,51 +168,113 @@ Key features:
 
 # Environment Setup
 
-For using this repo, please ensure first:
-1. Created a Virtual Environnement
+To use this repo, please ensure first:
+1. Synchronize with _uv_ or create a Virtual Environment
+
+It is commun to create a virtual environment for a python project. There is a tutorial to explain how do it. You can also use _uv_ to retrioeve our environment.
+
+We recommand you use _uv_ to avoid any future transitive dependancy issues.
+
+### Use _uv_
+If not already install, install _uv_ :
 ```bash
-python -m venv venv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+Reload your terminal, then synchronize the with the project with : 
+```bash
+uv sync
+```
+
+### If you prefer working with a Virtual Environment :
+```bash
+python -m venv .venv
 ```
 Then activate it:
 - For macOS / Linux:
 ```bash
-source venv/bin/activate
+source .venv/bin/activate
 ```
 - For Windows:
 ```bash
-venv\Scripts\activate
+.venv\Scripts\activate
 ```
-
-2. Install Dependencies
+Then install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Configure Environment Variables
-Create a .env file at the root of the project and indicates the API_KEY you use.
+2. Configure Environment Variables
+Create a .env file at the root of the project and indicates the API_KEY you use. You can find an example of a .env in the project
 
-**Please note that you have to create account following the provider you want to use.**
+**Please note that you have to create account or install in local the provider you want to use.**
 
-4. Choose your parameters in the main.py and run it.
+4. Choose your parameters in the main.py
+
+Some recommendations :
+
+`nb_paper`
+- Avoid a too large number of paper to treat (10 are great). The more papers you take, the longer the pipeline will take. 
+
+`batch_size`
+- For **local models**, batching is unnecessary — there are no API rate limits or token quota issues.
+  A value of `0` or `1` (sequential processing) is recommended.
+- For **remote API models**, use a reasonable batch size to avoid timeouts or rate-limit errors.
+
+`max_articles_per_generation`
+- If your clusters contain a **large number of articles**, it is strongly recommended to set a low
+  `max_articles_per_generation` (e.g. **5–10**).
+- Feeding too many articles at once increases the risk of **hallucinations** and may cause the
+  output format to break, crashing the pipeline.
+
+Scholar citation retrieval
+- Citation fetching via Semantic Scholar relies on its **free public API**, which is subject to
+  rate limiting. Expect slower execution when `scholar_citation=True`, especially for large paper sets.
+
+Custom clustering modalities
+- To use your own modalities, define them and place/import them in the `modalities/user_modalities`
+  folder, then pass them via the `user_modalities` parameter.
+
+
+5. Run it.
+
+For uv users :
+```bash
+uv run python main.py
+```
+
+otherwise :
+```bash
+python3 main.py
+```
 
 5. Find your results in the folder ```results```
 
-# LLM Backend
-Currently, you can use Groq and Ollama provider.
+# Uninstall the Environment
 
-Feel free to add your own LLM Backend.
-For that, respect the following base :
+If you want to suppress the environment:
+## clear _uv_
 
-```Python
-class LLMClient(ABC):
-    @abstractmethod
-    def complete(
-        self,
-        prompt: str,
-        temperature: float | None = None,
-        max_tokens: int | None = None,
-    ) -> str:
-        pass
+To suppress installation from _uv_
+```bash
+uv clean
 ```
 
-and add in the class LLMFactory.py your new LLM Backend
+## suppress virtual environment
+Suppress the folder .venv
+- for Linux/MAcOS 
+```bash
+rm -rf .venv
+```
+- for Window
+```bash
+rmdir .venv
+```
+
+# Future work
+- **LLM-as-a-Judge output verification** — Complement the existing format-checking function with an
+  LLM-based judge to validate paragraph quality and enforce output structure. This would also
+  introduce generation metrics tied to each paragraph produced.
+- **Parallel API calls** — Implement concurrency at the article-processing level to speed up the
+  pipeline, applicable to remote API providers only (not local models).
+- **Broader model & provider testing** — Evaluation has so far focused on provider ollama in local and Groq with the model `gemma3:4b` and `openai/gpt-oss-120b`. Testing
+  across additional providers and models would help assess generalizability and robustness.

@@ -24,6 +24,8 @@ def extract_axes(
     axes = data.get("axes")
 
     if not isinstance(axes, list):
-        raise ValueError(f"Invalid axes format: {data}")
+        raise ValueError(
+            f"Invalid axes format: {data}. Format output is maybe not a json"
+        )
 
     return axes

@@ -16,7 +16,7 @@ def fetch_arxiv_papers(search: arxiv.Search) -> list[Paper]:
 
     papers = []
 
-    for result in tqdm(client.results(search),desc="[Step_1] Fetch papers"):
+    for result in tqdm(client.results(search), desc="[Step_1] Fetch papers"):
         arxiv_id = normalize_arxiv_id(result.entry_id)
 
         papers.append(

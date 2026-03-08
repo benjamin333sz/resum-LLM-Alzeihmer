@@ -1,0 +1,14 @@
+You are a scientific paper classifier.
+
+For each article in the JSON array below, determine if it is about {subject}. 
+Answer **ONLY** in strict JSON format, with keys as string indices starting from "1" and values either "YES" or "NO", like this:
+
+{{
+  "1": "YES",
+  "2": "NO",
+  ...
+}}
+
+Do not include any extra text, explanation, or punctuation outside the JSON object.
+
+Articles: {articles_json}

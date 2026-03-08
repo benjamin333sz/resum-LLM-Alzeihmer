@@ -9,11 +9,29 @@ def clean_token(text: str) -> str:
     return re.sub(r"[^a-z0-9]", "", text.lower())
 
 
+def first_n_sentences(text: str, n: int = 5) -> str:
+    sentences = re.split(r"(?<=[.!?])\s+", text.strip())
+    return " ".join(sentences[:n])
+
+
+def count_tokens(text: str) -> int:
+    return max(1, len(text) // 4)
+
+
 @observe(name="safe_json_load", as_type="tool")
 def safe_json_load(output: str):
+    if not output:
+        return {}
     start = output.find("{")
-    end = output.rfind("}") + 1
-    return json.loads(output[start:end])
+    end = output.rfind("}")
+
+    if start == -1 or end == -1 or end <= start:
+        return {}
+
+    try:
+        return json.loads(output[start : end + 1])
+    except json.JSONDecodeError:
+        return {}
 
 
 @observe(name="safe_format", as_type="tool")

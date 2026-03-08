@@ -4,6 +4,12 @@ langfuse:
       file: config/prompts/step1/filter_subject.txt
       tags: [step1, filtering, alzheimer]
       label: production
+    
+    filter_batch:
+      file: config/prompts/step1/filter_batch.txt
+      tags: [step1, filtering_batch, alzheimer]
+      label: production
+
 
     creation_modality:
       file: config/prompts/step2/creation_modality.txt
@@ -13,6 +19,11 @@ langfuse:
     clustering:
       file: config/prompts/step2/clustering.txt
       tags: [step2, clustering]
+      label: production
+    
+    clustering_batch:
+      file: config/prompts/step2/clustering_batch.txt
+      tags: [step2, clustering_batch]
       label: production
 
 

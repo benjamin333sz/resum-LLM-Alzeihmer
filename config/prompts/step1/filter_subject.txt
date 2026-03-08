@@ -1,12 +1,9 @@
-You are a biomedical research expert.
+Determine whether the following scientific paper is about {subject}.
 
 Title:
 {title}
 
 Abstract:
 {abstract}
-
-Question:
-Is the main topic of this article about {subject} ?
 
 Answer only "yes" or "no".

@@ -12,7 +12,7 @@ CONTENT CONSTRAINTS:
 - Do NOT generalize beyond what is explicitly stated.
 
 CITATION CONSTRAINTS:
-- Citations are already formatted as \\cite{{bib_key}}.
+- Citations are already formatted as \\cite{{arxivXXXXXXX}} (with number instead of X).
 - You MUST preserve every existing \\cite{{...}}.
 - You MUST NOT modify citation keys.
 - You MUST NOT invent new citations.

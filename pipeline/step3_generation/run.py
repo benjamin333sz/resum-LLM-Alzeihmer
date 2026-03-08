@@ -8,8 +8,8 @@ from .latex import build_full_latex_document, arxiv_to_bibkey
 from entities.paper import Paper
 from llm.base import LLMClient
 from tqdm import tqdm
-from utils.utils import safe_format
 from .global_generality import introduction, conclusion
+from .chunk import split_chunks
 
 
 @observe(name="step3_generation", as_type="chain")
@@ -18,11 +18,11 @@ def run_step3(
     papers: list[Paper],
     llm: LLMClient,
     prompts: dict[str, str],
-    provider:str,
-    model:str,
+    provider: str,
+    model: str,
     reviewer_iterations: int = 1,
     subject: str = "alzheimer",
-
+    max_articles_per_generation: int | None = None,
 ) -> str:
 
     papers_by_id = {p.arxiv_id: p for p in papers}
@@ -30,65 +30,81 @@ def run_step3(
 
     names_clusters = []
 
-    for modality in tqdm(clusters["modalities"], desc="[Step_3] Generation of the State-of-the-Art"):
+    for modality in tqdm(
+        clusters["modalities"],
+        desc="[Step_3] Generation of the State-of-the-Art",
+        position=0,
+    ):
         cluster_name = modality["modality_id"]
         names_clusters.append(cluster_name)
         paper_ids = modality["article_ids"]
 
-        summaries = [
-            papers_by_id[pid].abstract for pid in paper_ids if pid in papers_by_id
-        ]
+        chunks = split_chunks(paper_ids, max_articles_per_generation=max_articles_per_generation)
+        chunk_sots = []
 
-        if not summaries:
-            continue
+        for i, chunk_ids in enumerate(tqdm(chunks, desc="split chunk", leave=False)):
 
-        axes = extract_axes(cluster_name, summaries, llm, prompts["extract_axes"])
-
-        assignments = assign_articles_to_axes(
-            cluster_name, summaries, axes, paper_ids, llm, prompts["assign_articles"]
-        )
-
-        axis_to_arxiv_ids = {axis: [] for axis in axes}
-
-        for arxiv_id, assigned_axes in assignments.items():
-            for axis in assigned_axes:
-                if axis in axis_to_arxiv_ids:
-                    axis_to_arxiv_ids[axis].append(arxiv_id)
-
-        paragraphs = {}
-
-        for axis in axes:
-
-            arxiv_ids = axis_to_arxiv_ids.get(axis, [])
-            filtered_summaries = [
-                papers_by_id[aid].abstract for aid in arxiv_ids if aid in papers_by_id
+            summaries = [
+                papers_by_id[pid].abstract for pid in chunk_ids if pid in papers_by_id
             ]
 
-            if not filtered_summaries:
+            if not summaries:
                 continue
 
-            bib_keys = [arxiv_to_bibkey(aid) for aid in arxiv_ids]
+            axes = extract_axes(cluster_name, summaries, llm, prompts["extract_axes"])
 
-            paragraph = generate_paragraph(
+            assignments = assign_articles_to_axes(
                 cluster_name,
-                axis,
-                filtered_summaries,
-                bib_keys,
+                summaries,
+                axes,
+                chunk_ids,
                 llm,
-                prompts["paragraph"],
+                prompts["assign_articles"],
             )
 
-            paragraphs[axis] = paragraph
+            axis_to_arxiv_ids = {axis: [] for axis in axes}
 
-        sot = generate_sot(cluster_name, paragraphs, llm, prompts["sot_merge"])
+            for arxiv_id, assigned_axes in assignments.items():
+                for axis in assigned_axes:
+                    if axis in axis_to_arxiv_ids:
+                        axis_to_arxiv_ids[axis].append(arxiv_id)
 
-        for _ in range(reviewer_iterations):
+            paragraphs = {}
 
-            review = review_sot(cluster_name, sot, llm, prompts["reviewer"])
+            for axis in axes:
 
-            revision = revise_sot(cluster_name, sot, review, llm, prompts["revision"])
+                arxiv_ids = axis_to_arxiv_ids.get(axis, [])
+                filtered_summaries = [
+                    papers_by_id[aid].abstract
+                    for aid in arxiv_ids
+                    if aid in papers_by_id
+                ]
 
-        clusters_content[cluster_name] = sot
+                if not filtered_summaries:
+                    continue
+
+                bib_keys = [arxiv_to_bibkey(aid) for aid in arxiv_ids]
+
+                paragraph = generate_paragraph(
+                    cluster_name,
+                    axis,
+                    filtered_summaries,
+                    bib_keys,
+                    llm,
+                    prompts["paragraph"],
+                )
+
+                paragraphs[axis] = paragraph
+
+            sot = generate_sot(cluster_name, paragraphs, llm, prompts["sot_merge"])
+
+            if max_articles_per_generation is None:
+                chunk_sots.append(sot)
+            else:
+                chunk_sots.append(f"---\nChunk {i+1}\n---\n{sot}")
+
+        # concaténer tous les chunks pour la modalité
+        clusters_content[cluster_name] = "\n\n".join(chunk_sots)
 
     global_intro = introduction(
         prompts["global_intro"],
@@ -110,5 +126,5 @@ def run_step3(
         papers=papers,
         subject=subject,
         model=model,
-        provider=provider
+        provider=provider,
     )

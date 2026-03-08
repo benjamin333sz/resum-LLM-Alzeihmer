@@ -106,7 +106,8 @@ def latex_escape(text: str) -> str:
 
 
 def build_bibliography_from_papers(papers, arxiv_url_map: dict[str, str]) -> str:
-    lines = ["\\begin{thebibliography}{99}\n"]
+    lines = ["\\begin{thebibliography}\n"]
+    lines[0] = lines[0] + "{" + f"{len(papers)}" + "}\n"
 
     for p in papers:
         key = f"arxiv{p.arxiv_id.replace('.', '')}"
@@ -185,8 +186,8 @@ def build_full_latex_document(
     global_intro: str,
     global_conclusion: str,
     papers: List,
-    provider:str,
-    model:str,
+    provider: str,
+    model: str,
     subject: str = "Alzheimer",
 ) -> str:
 

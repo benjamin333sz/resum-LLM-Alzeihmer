@@ -16,7 +16,7 @@ Constraints:
 - Continuous prose
 - You MUST cite papers using ONLY the following keys:
 {allowed_citations}
-- Use the format \\cite{{arxivXXXXXXX}} EXACTLY
+- Use the format \\cite{{arxivXXXXXXX}} EXACTLY (with number instead of X)
 - Do NOT invent citation keys
 - Do NOT cite models, frameworks, or datasets as references
 - Do NOT use numeric citations or placeholders
