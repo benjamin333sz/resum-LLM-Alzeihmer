@@ -1,0 +1,9 @@
+Determine whether the following scientific paper is about {subject}.
+
+Title:
+{title}
+
+Abstract:
+{abstract}
+
+Answer only "yes" or "no".

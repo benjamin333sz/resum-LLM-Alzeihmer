@@ -1,0 +1,25 @@
+You are writing a scientific paragraph for a State of the Art.
+
+Cluster: {cluster_name}
+Axis: {axis}
+
+Here are the available papers:
+
+{summaries_block}
+
+Use LaTeX citation format: \\cite{{key}}
+
+Constraints:
+- Do not invent any citation.
+- Do not cite any paper not listed above.
+- 5–7 sentences
+- Continuous prose
+- You MUST cite papers using ONLY the following keys:
+{allowed_citations}
+- Use the format \\cite{{arxivXXXXXXX}} EXACTLY (with number instead of X)
+- Do NOT invent citation keys
+- Do NOT cite models, frameworks, or datasets as references
+- Do NOT use numeric citations or placeholders
+- Do NOT use any other citation format
+
+Write a coherent academic paragraph.

@@ -1,0 +1,24 @@
+[project]
+name = "generation_sot"
+version = "0.1.0"
+description = "Paper generation pipeline"
+requires-python = ">=3.10,<3.13"
+
+dependencies = [
+    "requests==2.32.5",
+    "arxiv==2.4.1",
+    "openai==2.26.0",
+    "tqdm==4.67.3",
+    "semanticscholar==0.11.0",
+    "langfuse==3.14.5",
+    "python-dotenv==1.2.2",
+    "bibtexparser==1.4.4",
+    "ollama==0.6.1",
+    "groq==1.0.0"
+]
+
+[dependency-groups]
+dev = [
+    "black==26.1.0",
+    "pre-commit==4.5.1"
+]
