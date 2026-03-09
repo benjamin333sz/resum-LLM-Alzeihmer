@@ -35,5 +35,4 @@ MODALITIES = {
         "Studies on molecular, biochemical or cellular mechanisms "
         "underlying Alzheimer's disease."
     ),
-    "NEW_MODALITY": ("Use only if none of the above clearly apply."),
 }

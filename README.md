@@ -208,7 +208,7 @@ Create a .env file at the root of the project and indicates the API_KEY you use.
 
 **Please note that you have to create account or install in local the provider you want to use.**
 
-4. Choose your parameters in the main.py
+3. Choose your parameters in the main.py
 
 Some recommendations :
 
@@ -235,7 +235,7 @@ Custom clustering modalities
   folder, then pass them via the `user_modalities` parameter.
 
 
-5. Run it.
+4. Run it.
 
 For uv users :
 ```bash
