@@ -226,11 +226,11 @@ Some recommendations :
 - Feeding too many articles at once increases the risk of **hallucinations** and may cause the
   output format to break, crashing the pipeline.
 
-Scholar citation retrieval
+`Scholar citation retrieval`
 - Citation fetching via Semantic Scholar relies on its **free public API**, which is subject to
   rate limiting. Expect slower execution when `scholar_citation=True`, especially for large paper sets.
 
-Custom clustering modalities
+`Custom clustering modalities`
 - To use your own modalities, define them and place/import them in the `modalities/user_modalities`
   folder, then pass them via the `user_modalities` parameter.
 
