@@ -19,7 +19,11 @@ def filter_batch(
 ) -> list[Paper]:
 
     i = 0
-    pbar = tqdm(total=len(papers), desc=f"[Step_1] Filtering papers about {subject}", unit="paper")
+    pbar = tqdm(
+        total=len(papers),
+        desc=f"[Step_1] Filtering papers about {subject}",
+        unit="paper",
+    )
 
     while i < len(papers):
 
@@ -27,20 +31,20 @@ def filter_batch(
 
         while current_batch_size > 0:
 
-            batch_papers = papers[i:i + current_batch_size]
+            batch_papers = papers[i : i + current_batch_size]
 
-            articles_json = json.dumps([
-                {
-                    "title": first_n_sentences(p.title, sentance_max),
-                    "abstract": first_n_sentences(p.abstract, sentance_max),
-                }
-                for p in batch_papers
-            ])
+            articles_json = json.dumps(
+                [
+                    {
+                        "title": first_n_sentences(p.title, sentance_max),
+                        "abstract": first_n_sentences(p.abstract, sentance_max),
+                    }
+                    for p in batch_papers
+                ]
+            )
 
             prompt = safe_format(
-                prompt_template,
-                subject=subject,
-                articles_json=articles_json
+                prompt_template, subject=subject, articles_json=articles_json
             )
 
             tokens = count_tokens(prompt)

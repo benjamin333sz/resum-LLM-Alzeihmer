@@ -39,7 +39,9 @@ def run_step3(
         names_clusters.append(cluster_name)
         paper_ids = modality["article_ids"]
 
-        chunks = split_chunks(paper_ids, max_articles_per_generation=max_articles_per_generation)
+        chunks = split_chunks(
+            paper_ids, max_articles_per_generation=max_articles_per_generation
+        )
         chunk_sots = []
 
         for i, chunk_ids in enumerate(tqdm(chunks, desc="split chunk", leave=False)):

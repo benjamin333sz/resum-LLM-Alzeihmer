@@ -10,3 +10,4 @@ python-dotenv==1.2.2
 bibtexparser==1.4.4
 ollama==0.6.1
 groq==1.0.0
+streamlit==1.55.0

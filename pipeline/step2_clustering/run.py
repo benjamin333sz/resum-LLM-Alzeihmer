@@ -21,13 +21,25 @@ def run_step2(
 
     if user_modalities:
         if batch_size:
-            clusters=clustering_batch(papers, llm, prompts["clustering_batch"], user_modalities,batch_size_start=batch_size)
+            clusters = clustering_batch(
+                papers,
+                llm,
+                prompts["clustering_batch"],
+                user_modalities,
+                batch_size_start=batch_size,
+            )
         else:
             clusters = clustering(papers, llm, prompts["clustering"], user_modalities)
     else:
         user_modalities = creation_modality(subject, llm, prompts["creation_modality"])
         if batch_size:
-            clusters=clustering_batch(papers, llm, prompts["clustering_batch"], user_modalities,batch_size_start=batch_size)
+            clusters = clustering_batch(
+                papers,
+                llm,
+                prompts["clustering_batch"],
+                user_modalities,
+                batch_size_start=batch_size,
+            )
         else:
             clusters = clustering(papers, llm, prompts["clustering"], user_modalities)
 

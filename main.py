@@ -23,7 +23,8 @@ user_modalities = {}
 scholar_citation = False
 max_articles_per_generation = None
 pdf_compilation = True
-batch_size=0
+batch_size = 0
+
 
 @observe(name="subject_pipeline", as_type="chain")
 def main(

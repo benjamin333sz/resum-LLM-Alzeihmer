@@ -26,14 +26,10 @@ def clustering_batch(
         current_batch_size = min(batch_size_start, len(papers) - i)
 
         while current_batch_size > 0:
-            batch_papers = papers[i:i+current_batch_size]
-            articles_json = json.dumps([
-                {
-                    "title": p.title,
-                    "abstract": p.abstract
-                }
-                for p in batch_papers
-            ])
+            batch_papers = papers[i : i + current_batch_size]
+            articles_json = json.dumps(
+                [{"title": p.title, "abstract": p.abstract} for p in batch_papers]
+            )
             prompt = safe_format(
                 prompt_template,
                 modalities_json=modalities_json,
@@ -46,9 +42,7 @@ def clustering_batch(
             current_batch_size -= 1
 
         if current_batch_size == 0:
-            raise RuntimeError(
-                "Single article exceeds token limit."
-            )
+            raise RuntimeError("Single article exceeds token limit.")
 
         response = llm.complete(prompt, temperature=0.1)
         results = safe_json_load(response)
